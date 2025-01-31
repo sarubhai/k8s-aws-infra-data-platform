@@ -29,9 +29,7 @@ jobs:
         run: |
           aws eks describe-cluster --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
           aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
-          kubectl config view --minify
           kubectl config current-context
           kubectl cluster-info
-      - name: Access EKS Cluster
-        run: kubectl get nodes
+      
       
