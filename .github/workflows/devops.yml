@@ -27,11 +27,11 @@ jobs:
           registries: ${{ secrets.AWS_DEV_ACCOUNT_ID }}
       - name: Configure EKS Cluster
         run: |
-          sudo aws eks describe-cluster --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
-          sudo aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
+          aws eks describe-cluster --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
+          aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
           
-          sudo kubectl config view
-          sudo kubectl config current-context
-          sudo kubectl cluster-info
+          kubectl config view
+          kubectl config current-context
+          kubectl cluster-info
       
       
