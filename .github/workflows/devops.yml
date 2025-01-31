@@ -27,7 +27,7 @@ jobs:
           registries: ${{ secrets.AWS_DEV_ACCOUNT_ID }}
       - name: Configure EKS Cluster
         env:
-          KUBECONFIG: ~/.kube/config
+          KUBECONFIG: /root/.kube/config
         run: |
           # set -e  # Exit immediately if a command exits with a non-zero status.
           echo "Cluster Name: ${{ secrets.AWS_DEV_EKS_CLUSTER }}"
