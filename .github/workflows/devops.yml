@@ -28,7 +28,7 @@ jobs:
       - name: Configure EKS Cluster
         run: |
           aws eks describe-cluster --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
-          aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
+          aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }} --kubeconfig ~/.kube/config
           
           kubectl config view
           kubectl config current-context
