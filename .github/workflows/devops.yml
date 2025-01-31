@@ -29,10 +29,14 @@ jobs:
         env:
           KUBECONFIG: ~/.kube/config
         run: |
-          set -e  # Exit immediately if a command exits with a non-zero status.
+          # set -e  # Exit immediately if a command exits with a non-zero status.
+          echo "Cluster Name: ${{ secrets.AWS_DEV_EKS_CLUSTER }}"
+          echo "KUBECONFIG: $KUBECONFIG"
+          aws eks describe-cluster --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
           aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }} --kubeconfig $KUBECONFIG
+          kubectl config set-context --current --cluster $(aws eks describe-cluster --name $AWS_DEV_EKS_CLUSTER --query cluster.name --output text) --kubeconfig $KUBECONFIG
           kubectl config use-context ${{ secrets.AWS_DEV_EKS_CLUSTER }} --kubeconfig $KUBECONFIG
-          kubectl config view --kubeconfig $KUBECONFIG
+          kubectl config view --kubeconfig $KUBECONFIG  # Examine the full output
           kubectl config current-context --kubeconfig $KUBECONFIG
           kubectl cluster-info --kubeconfig $KUBECONFIG
       
