@@ -1,0 +1,27 @@
+name: DataPlatformDevOps
+on:
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read 
+jobs:
+  devops-automation:
+    runs-on: ["aws-hosted-runner"]
+    steps:
+      - name: Checkout local repo
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEV_IAM_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          disable-retry: "true"
+      - name: Get STS Caller Identity
+        run: aws sts get-caller-identity
+      - name: List S3 Buckets
+        run: aws s3 ls
+      # - name: Login to Amazon ECR
+      #   id: login-ecr
+      #   uses: aws-actions/amazon-ecr-login@v2
+      #   with:
+      #     registries: ${{ secrets.AWS_DEV_ACCOUNT_ID }}
