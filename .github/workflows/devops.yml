@@ -25,3 +25,8 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
         with:
           registries: ${{ secrets.AWS_DEV_ACCOUNT_ID }}
+      - name: Configure EKS Cluster
+        run: aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
+      - name: Access EKS Cluster
+        run: kubectl get nodes
+      
