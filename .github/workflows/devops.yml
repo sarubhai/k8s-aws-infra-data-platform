@@ -24,8 +24,8 @@ jobs:
         with:
           registries: ${{ secrets.AWS_DEV_ACCOUNT_ID }}
       - name: Configure EKS Cluster
-        # env:
-          # KUBECONFIG: /root/.kube/config
+        env:
+          KUBECONFIG: /root/.kube/config
         run: |
           aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }} --alias ${{ secrets.AWS_DEV_EKS_CLUSTER }} # --kubeconfig $KUBECONFIG
           
