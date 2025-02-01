@@ -24,19 +24,13 @@ jobs:
         with:
           registries: ${{ secrets.AWS_DEV_ACCOUNT_ID }}
       - name: Configure EKS Cluster
-        env:
-          KUBECONFIG: /root/.kube/config
+        # env:
+          # KUBECONFIG: /root/.kube/config
         run: |
-          # set -e  # Exit immediately if a command exits with a non-zero status.
-          # aws eks describe-cluster --name ${{ secrets.AWS_DEV_EKS_CLUSTER }}
-          aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }} --alias ${{ secrets.AWS_DEV_EKS_CLUSTER }} --kubeconfig $KUBECONFIG
+          aws eks update-kubeconfig --name ${{ secrets.AWS_DEV_EKS_CLUSTER }} --alias ${{ secrets.AWS_DEV_EKS_CLUSTER }} # --kubeconfig $KUBECONFIG
           
-          ls -ltra $KUBECONFIG
-          cat $KUBECONFIG
-          
-          kubectl config get-contexts --kubeconfig $KUBECONFIG
-          kubectl config current-context --kubeconfig $KUBECONFIG
-          
+          kubectl config get-contexts # --kubeconfig $KUBECONFIG
+          kubectl config current-context # --kubeconfig $KUBECONFIG      
           
           kubectl cluster-info --kubeconfig $KUBECONFIG
           kubectl get pods -A
